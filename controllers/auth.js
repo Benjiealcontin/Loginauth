@@ -1,27 +1,29 @@
-const User = require('../models/User')
+const User = require("../models/User");
 
 
-
+// @desc    Register user
 exports.register = async (req, res, next) => {
-    const {Name, Email, Password} = req.body
-
+    const { firstname, lastname, email, password } = req.body;
+  
     try {
-        const User = await User.create({
-            Name,
-            Email,
-            Password,
-        });
-        res.status(201).json({
-            success: true,
-            user,
-        })
-        
-    } catch (error) {
+      const user = await User.create({
+        firstname,
+        lastname,
+        email,
+        password,
+      });
+
+      res.status(201).json({
+          success: true,
+          user,
+      });
+    }catch (error){
         res.status(500).json({
             success: false,
-            error: error,message,
-        })
+            error: error.message,
+        });
     }
+
 };
 
 exports.login = (req, res, next) => {
